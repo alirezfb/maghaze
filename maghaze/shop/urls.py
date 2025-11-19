@@ -1,9 +1,12 @@
-from django.urls import path, include
-from .views import helloworld, about, login_user, logout_user
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('', helloworld, name='home'),
-    path('about/', about, name='about'),
-    path('login/', login_user, name='login'),
-    path('logout/', logout_user, name='logout'),
+    path('', views.helloworld, name='home'),
+    path('about/', views.about, name='about'),
+    path('login/', views.login_user, name='login'),
+    path('logout/', views.logout_user, name='logout'),
+    path('signup/', views.signup_user, name='signup'),
+    path('product/<int:pk>', views.product, name='product'),
+    path('category/<str:cat>', views.category, name='category'),
 ]
