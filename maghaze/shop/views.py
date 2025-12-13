@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .forms import SignUpForm, UpdateUserForm
+from .forms import SignUpForm, UpdateUserForm, UpdatePasswordForm
 
 def category_summary(request):
     all_cat = Category.objects.all()
@@ -69,6 +69,29 @@ def update_user(request):
         return render(request, 'update_user.html', {'user_form':user_form})
     else:
         messages.success(request,'ابتدا باید وارد حساب کاربری خود بشوید')
+        return redirect('home')
+
+def update_password(request):
+    if request.user.is_authenticated:
+        current_user = request.user
+
+        if request.method == "POST":
+            form = UpdatePasswordForm(current_user, request.POST)
+
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'زمز با موفقیت تغییر یافت')
+                login(request, current_user)
+                return redirect('update_user')
+            else:
+                for error in list(form.errors.values()):
+                    messages.error(request, error)
+                return redirect('update_password')
+        else:
+            form = UpdatePasswordForm(current_user)
+            return render(request, 'update_password.html', {'form':form})
+    else:
+        messages.success(request, 'ابتدا باید وارد حساب کاربری خود شوید')
         return redirect('home')
 
 def product(request,pk):

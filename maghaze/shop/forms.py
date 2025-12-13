@@ -1,6 +1,34 @@
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, SetPasswordForm
 from django import forms
+
+class UpdatePasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        label="",
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'name': 'password',
+                'type': 'password',
+                'placeholder': 'رمز بالای 8 کاراکتر را وارد کنید'
+            }
+        )
+    )
+    new_password2 = forms.CharField(
+        label="",
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'name': 'password',
+                'type': 'password',
+                'placeholder': 'رمز خود را دوباره وارد نمایید'
+            }
+        )
+    )
+    class Meta:
+        model = User
+        fields = ['new_password1', 'new_password2']
+
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(
