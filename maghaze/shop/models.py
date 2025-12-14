@@ -29,7 +29,7 @@ class Profile(models.Model):
     city = models.CharField(max_length=25, blank=True)
     state = models.CharField(max_length=25, blank=True)
     zipcode = models.CharField(max_length=25, blank=True)
-    country = models.CharField(max_length=25, blank=True)
+    country = models.CharField(max_length=25, default='IRAN')
 
     def __str__(self):
         return self.user.username
