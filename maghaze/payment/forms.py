@@ -2,38 +2,61 @@ from django import forms
 from .models import ShippingAddress
 
 class ShippingForm(forms.ModelForm):
-    phone = forms.CharField(
+    shipping_full_name = forms.CharField(
         label="",
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'شماره تلفن'}),
-        required=False
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Full_name'}),
+        required=True,
     )
-    address1 = forms.CharField(
+    shipping_email = forms.CharField(
+        label="",
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
+        required=True,
+    )
+    shipping_address1 = forms.CharField(
         label="",
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'آدرس اول'}),
-        required=False
+        required=True,
     )
-    address2 = forms.CharField(
+    shipping_address2 = forms.CharField(
         label="",
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'آدرس دوم'}),
-        required=False
+        required=False,
     )
-    city = forms.CharField(
+    shipping_city = forms.CharField(
         label="",
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'شهر'}),
-        required=False
+        required=True,
     )
-    state = forms.CharField(
+    shipping_state = forms.CharField(
         label="",
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'استان'}),
-        required=False
+        required=False,
     )
-    zipcode = forms.CharField(
+    shipping_zipcode = forms.CharField(
         label="",
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'کدپستی'}),
-        required=False
+        required=False,
     )
-    country = forms.CharField(
+    shipping_country = forms.CharField(
         label="",
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'کشور'}),
-        required=False
+        required=True,
     )
+
+    class Meta:
+        model = ShippingAddress
+        fields = [
+            'shipping_full_name',
+            'shipping_email',
+            'shipping_phone',
+            'shipping_address1',
+            'shipping_address2',
+            'shipping_city',
+            'shipping_city',
+            'shipping_state',
+            'shipping_zipcode',
+            'shipping_country',
+            'shipping_old_cart'
+        ]
+
+        exclude = ['user',]
