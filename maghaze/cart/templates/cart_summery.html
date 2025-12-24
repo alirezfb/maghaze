@@ -57,6 +57,9 @@
 </div>
 {% endfor %}
 <h1>مجموع کل سفارشات: {{ total | intcomma }} </h1>
+<br>
+<a href="{% url 'checkout'%}" class="btn btn-success">صورتحساب</a>
+<br><br>
 {% else %}
 <center><h3 class="container">سبد خرید شما خالی می باشد :(</h3></center>
 {% endif %}
