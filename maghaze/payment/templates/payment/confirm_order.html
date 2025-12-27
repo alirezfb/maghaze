@@ -53,6 +53,8 @@
                                 مشخصات ارسال
                             </div>
                             <div class="card-body">
+                                <form method="POST" action="{% url 'process_order' %}">
+                                    {% csrf_token %}
                                 نام و نام خانوادگی: {{shipping_info.shipping_full_name }}<br>
                                 ایمیل: {{shipping_info.shipping_email }}<br>
                                 آدرس 1: {{shipping_info.shipping_address1 }}<br>
@@ -65,8 +67,9 @@
                         </div>
                     </div>
                     <br>
-                    <a href="#" class="btn btn-sm btn-outline-secondary">ثبت سفارش</a>
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">ثبت سفارش</button>
                 </center>
+                </form>
             </div>
         </div>
         <br><br><br><br><br><br>
