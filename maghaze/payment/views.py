@@ -1,10 +1,12 @@
 from http.cookiejar import user_domain_match
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from cart.cart import Cart
 from .forms import ShippingForm
-from .models import ShippingAddress, Order
+from .models import ShippingAddress, Order, OrderItem
 from django.contrib import messages
+from shop.models import Product
+from django.contrib.auth.models import User
 
 def payment_success(request):
     return render(request, 'payment/payment_success.html', {})
@@ -63,6 +65,31 @@ def process_order(request):
                 amount_paid=total
             )
             new_order.save()
+
+
+            odr = get_object_or_404(Order, id=new_order.pk)
+
+            for product in cart_products:
+                prod = get_object_or_404(Product, id=product.id)
+
+                if product.is_sale:
+                    price = product.sale_price
+                else:
+                    price = product.price
+
+
+                for k,v in quantities.items():
+                    if int(k) == product.id:
+                        new_item = OrderItem(
+                            order=odr,
+                            product=prod,
+                            price=price,
+                            quantity=v,
+                            user=user
+                        )
+                        new_item.save()
+
+
             messages.success(request, 'سفارش شما ثبت شد')
             return redirect('home')
         else:
@@ -72,6 +99,37 @@ def process_order(request):
                 shipping_address=full_address,
                 amount_paid=total
             )
+            new_order.save()
+
+            user = request.user
+            new_order = Order(
+                user=user,
+                full_name=full_name,
+                email=email,
+                shipping_address=full_address,
+                amount_paid=total
+            )
+            new_order.save()
+
+            odr = get_object_or_404(Order, id=new_order.pk)
+
+            for product in cart_products:
+                prod = get_object_or_404(Product, id=product.id)
+
+                if product.is_sale:
+                    price = product.sale_price
+                else:
+                    price = product.price
+
+                for k, v in quantities.items():
+                    if int(k) == product.id:
+                        new_item = OrderItem(
+                            order=odr,
+                            product=prod,
+                            price=price,
+                            quantity=v,
+                        )
+                        new_item.save()
             messages.success(request, 'سفارش شما ثبت شد')
             return redirect('home')
 
