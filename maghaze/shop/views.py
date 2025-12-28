@@ -12,6 +12,10 @@ from cart.cart import Cart
 from payment.forms import ShippingForm
 from payment.models import ShippingAddress
 
+
+def user_orders(request)
+
+
 def search(request):
     if request.method == "POST":
         searched = request.POST['searched']

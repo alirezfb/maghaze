@@ -89,6 +89,9 @@ def process_order(request):
                         )
                         new_item.save()
 
+            for key in list(request.session.keys()):
+                if key == 'session_key':
+                    del request.session[key]
 
             messages.success(request, 'سفارش شما ثبت شد')
             return redirect('home')
@@ -130,6 +133,11 @@ def process_order(request):
                             quantity=v,
                         )
                         new_item.save()
+
+            for key in list(request.session.keys()):
+                if key == 'session_key':
+                    del request.session[key]
+
             messages.success(request, 'سفارش شما ثبت شد')
             return redirect('home')
 
