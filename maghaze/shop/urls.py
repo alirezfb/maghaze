@@ -14,5 +14,5 @@ urlpatterns = [
     path('category/<str:cat>', views.category, name='category'),
     path('category/', views.category_summary, name='category_summery'),
     path('search/', views.search, name='search'),
-    path('orders/', views.user_orders, name='user_orders'),
+    path('orders/', views.user_orders, name='orders'),
 ]
