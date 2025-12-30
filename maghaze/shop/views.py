@@ -10,7 +10,22 @@ from django.db.models import Q
 import json
 from cart.cart import Cart
 from payment.forms import ShippingForm
-from payment.models import ShippingAddress, Order
+from payment.models import ShippingAddress, Order, OrderItem
+
+
+def order_details(request, pk):
+    if request.user.is_authenticated:
+        order = Order.objects.get(pk=pk)
+        items = OrderItem.objects.filter(order=pk)
+
+        context = {
+            'order':order,
+            'items':items
+        }
+        return render(request, 'order_details.html', context)
+    else:
+        messages.success(request, 'دسترسی به این صفحه امکان پذیر نمی باشد')
+        return redirect('home')
 
 
 def user_orders(request):
