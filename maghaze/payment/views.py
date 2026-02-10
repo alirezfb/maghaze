@@ -51,9 +51,9 @@ def process_order(request):
         user_shipping = request.session.get('user_shipping')
         full_name = user_shipping['shipping_full_name']
         email = user_shipping['shipping_email']
-        full_address = (f'{user_shipping['shipping_address1']}\n{user_shipping['shipping_address2']}'
-                        f'\n{user_shipping['shipping_city']}\n{user_shipping['shipping_state']}'
-                        f'\n{user_shipping['shipping_zipcode']}\n{user_shipping['shipping_country']}\n')
+        full_address = (f"{user_shipping['shipping_address1']}\n{user_shipping['shipping_address2']}"
+                        f"\n{user_shipping['shipping_city']}\n{user_shipping['shipping_state']}"
+                        f"\n{user_shipping['shipping_zipcode']}\n{user_shipping['shipping_country']}\n")
 
         if request.user.is_authenticated:
             user = request.user
