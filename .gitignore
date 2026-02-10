@@ -2,3 +2,9 @@
 /db.sqlite3
 /.idea/
 /__pycache__/
+*.pyc
+.env
+db.sqlite3
+.idea
+media/
+staticfiles/
