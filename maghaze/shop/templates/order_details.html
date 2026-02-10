@@ -10,16 +10,22 @@
 
                 <h3>جزئیات سفارش</h3>
 
-                {{ order }}<br>
-                {{ items }}
-
                 <div class="card">
                     <div class="card-header">
-                        {{order.id}} - {{ order.amount_paid|intcomma }}سفارش
+                        سفارش شماره {{order.id}} - {{ order.amount_paid|intcomma }} تومان
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        به نام: {{ order.full_name }}<br>
+                        ایمیل: {{ order.email }}<br>
+                        آدرس: {{order.shipping_address }}<br>
+                        تاریخ ثبت: {{ order.date_ordered|date:"Y-m-d" }}<br>
+                        آخرین ویرایش: {{ order.last_update|date:"Y-m-d" }}<br>
+                        وضعیت ارسال: {{ order.get_status_display }}<br>
+                        <hr>
+                        کالاها:<br>
+                        {% for item in items %}
+                            {{ item.product }} | تعداد {{ item.quantity }} عدد | {{ item.price|intcomma }} تومان
+                        {% endfor %}
                     </div>
                 </div>
 
